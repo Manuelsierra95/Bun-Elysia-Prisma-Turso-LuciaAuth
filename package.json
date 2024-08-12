@@ -6,10 +6,21 @@
     "dev": "bun run --watch src/index.ts"
   },
   "dependencies": {
-    "elysia": "latest"
+    "@elysiajs/cookie": "^0.8.0",
+    "@elysiajs/cors": "^1.1.0",
+    "@libsql/client": "^0.8.1",
+    "@prisma/adapter-libsql": "^5.18.0",
+    "@prisma/client": "^5.18.0",
+    "arctic": "^1.9.2",
+    "bcrypt": "^5.1.1",
+    "elysia": "latest",
+    "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.6",
+    "bun-types": "latest",
+    "prisma": "^5.18.0"
   },
   "module": "src/index.js"
 }
