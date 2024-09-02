@@ -34,7 +34,7 @@ export class UserRepository implements IUser {
     }
   }
 
-  async find(email: string) {
+  async findByEmail(email: string) {
     const user = await this.db.user.findUnique({
       where: {
         email,
@@ -43,5 +43,20 @@ export class UserRepository implements IUser {
     if (!user) return null
 
     return new User(user.id, user.email, user.password)
+  }
+
+  async update(id: string, data: Partial<{ email: string; password: string }>): Promise<User> {
+    const userExists = await this.db.user.findUnique({ where: { id } })
+
+    if (!userExists) {
+      throw new Error('User not found')
+    }
+
+    const userData = await this.db.user.update({
+      where: { id },
+      data,
+    })
+
+    return new User(userData.id, userData.email, userData.password)
   }
 }

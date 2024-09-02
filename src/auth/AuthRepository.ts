@@ -1,8 +1,9 @@
 import type { IAuth } from './domain/IAuth'
-import { Auth } from '../services/auth'
 import { PrismaClient } from '@prisma/client'
 import { PrismaLibSQL } from '@prisma/adapter-libsql'
 import { createClient } from '@libsql/client'
+import { User } from '../user/domain/User'
+import { UserRepository } from '../user/infraestructure/UserRepository'
 
 const libsql = createClient({
   url: `${process.env.TURSO_DATABASE_URL}`,
@@ -13,28 +14,51 @@ const adapter = new PrismaLibSQL(libsql)
 
 export class AuthRepository implements IAuth {
   private db: PrismaClient
+  private userRepository: UserRepository
 
   constructor() {
     this.db = new PrismaClient({ adapter })
+    this.userRepository = new UserRepository()
   }
 
-  async signInGoogle(): Promise<void> {
-    // Aquí podrías registrar una sesión o realizar alguna operación en la base de datos si es necesario
-    console.log('Google sign in handled.')
+  async findUserByEmail(email: string): Promise<User | null> {
+    return this.userRepository.findByEmail(email)
   }
 
-  async signInGitHub(): Promise<void> {
-    // Aquí podrías registrar una sesión o realizar alguna operación en la base de datos si es necesario
-    console.log('GitHub sign in handled.')
+  async createUser(email: string, githubId: number): Promise<User> {
+    try {
+      const user = await this.db.user.create({
+        data: {
+          email,
+          githubId,
+          password: '',
+        },
+      })
+
+      return new User(user.id, user.email, user.password, user.githubId)
+    } catch (e) {
+      const error = e as Error
+      console.log(error.message)
+      throw new Error(error.message)
+    }
   }
 
-  async callback(code: string, provider: string): Promise<any> {
-    // Aquí puedes manejar la lógica del callback, como almacenar tokens en la base de datos si es necesario
-    console.log(`Callback handled for provider: ${provider} with code: ${code}`)
+  async updateUser(id: string, data: Partial<{ email: string; password: string }>): Promise<User> {
+    return this.userRepository.update(id, data)
   }
 
-  async signOut(): Promise<void> {
-    // Aquí podrías eliminar la sesión o realizar alguna operación en la base de datos si es necesario
-    console.log('User signed out.')
+  async createSession(userId: string): Promise<string> {
+    const session = await this.db.session.create({
+      data: {
+        userId,
+      },
+    })
+    return session.id
+  }
+
+  async saveAuthState(state: string): Promise<void> {
+    await this.db.authState.create({
+      data: { state },
+    })
   }
 }

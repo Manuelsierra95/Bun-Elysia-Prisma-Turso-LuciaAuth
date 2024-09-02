@@ -1,12 +1,15 @@
 import Elysia from 'elysia'
 import { userRouter } from '../user/userRouter'
 import cors from '@elysiajs/cors'
+import { cookie } from '@elysiajs/cookie'
+import { authUserRouter } from '../auth/authRouter'
 
 export class Server {
   private app: Elysia
 
   constructor() {
     this.app = new Elysia()
+    this.app.use(cookie())
     this.app.use(
       cors({
         // origin: /^192\.168\.1\.[0-9]+$/,
@@ -22,7 +25,7 @@ export class Server {
         token: auth?.startsWith('Bearer ') ? auth.slice(7) : null,
       }
     })
-    this.app.group('/api/v1', (app) => app.use(userRouter))
+    this.app.group('/api/v1', (app) => app.use(userRouter).use(authUserRouter))
   }
 
   public start() {

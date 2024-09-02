@@ -11,8 +11,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
+model User {
   id String @id @default(uuid())
   email String @unique
   password String
+  githubId  Int?  @unique
+  sessions  Session[]
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model AuthState {
+  id        String   @id @default(uuid())
+  state     String   @unique
+  createdAt DateTime @default(now())
 }

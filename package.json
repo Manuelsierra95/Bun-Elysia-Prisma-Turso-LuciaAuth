@@ -14,7 +14,8 @@
     "arctic": "^1.9.2",
     "bcrypt": "^5.1.1",
     "elysia": "latest",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "lucia": "^3.2.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
