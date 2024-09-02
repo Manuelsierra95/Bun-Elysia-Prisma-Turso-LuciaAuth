@@ -25,17 +25,16 @@ export class AuthRepository implements IAuth {
     return this.userRepository.findByEmail(email)
   }
 
-  async createUser(email: string, githubId: number): Promise<User> {
+  async createUser(email: string): Promise<User> {
     try {
       const user = await this.db.user.create({
         data: {
           email,
-          githubId,
-          password: '',
+          password: null,
         },
       })
 
-      return new User(user.id, user.email, user.password, user.githubId)
+      return new User(user.id, user.email, user.password)
     } catch (e) {
       const error = e as Error
       console.log(error.message)

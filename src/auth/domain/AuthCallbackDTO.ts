@@ -10,3 +10,15 @@ export const authCallbackGitHubDTO = {
   }),
   redirect: t.Any(),
 }
+
+export const authCallbackGoogleDTO = {
+  query: t.Object({
+    code: t.String(),
+    state: t.String(),
+  }),
+  cookie: t.Cookie({
+    google_oauth_state: t.String(),
+    google_oauth_code_verifier: t.String(),
+  }),
+  redirect: t.Any(),
+}
