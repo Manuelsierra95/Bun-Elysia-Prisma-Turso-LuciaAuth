@@ -1,9 +1,9 @@
-import type { IAuth } from './domain/IAuth'
+import type { IAuth } from '../domain/IAuth'
 import { PrismaClient } from '@prisma/client'
 import { PrismaLibSQL } from '@prisma/adapter-libsql'
 import { createClient } from '@libsql/client'
-import { User } from '../user/domain/User'
-import { UserRepository } from '../user/infraestructure/UserRepository'
+import { User } from '../../user/domain/User'
+import { UserRepository } from '../../user/infraestructure/UserRepository'
 
 const libsql = createClient({
   url: `${process.env.TURSO_DATABASE_URL}`,

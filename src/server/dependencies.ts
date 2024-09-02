@@ -4,7 +4,7 @@ import { JWT } from '../services/jwt'
 
 // Repositories
 import { UserRepository } from '../user/infraestructure/UserRepository'
-import { AuthRepository } from '../auth/AuthRepository'
+import { AuthRepository } from '../auth/infraestructure/AuthRepository'
 
 // Applications
 import { CreateUser } from '../user/application/create'
