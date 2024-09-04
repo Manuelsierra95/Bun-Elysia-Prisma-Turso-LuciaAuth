@@ -16,4 +16,5 @@ export const loginUserDTO = {
       minLength: 6,
     }),
   }),
+  cookie: t.Object({}),
 }

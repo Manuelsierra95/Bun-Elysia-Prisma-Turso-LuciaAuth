@@ -37,8 +37,6 @@ export class AuthLoginUser {
     cookie.google_oauth_state.value = state
     cookie.google_oauth_code_verifier.value = codeVerifier
 
-    console.log(url.toString())
-
     return redirect(url.toString())
   }
 }

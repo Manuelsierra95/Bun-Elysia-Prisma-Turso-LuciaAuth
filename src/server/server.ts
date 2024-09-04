@@ -12,20 +12,20 @@ export class Server {
     this.app.use(cookie())
     this.app.use(
       cors({
-        // origin: /^192\.168\.1\.[0-9]+$/,
         origin: true,
+        credentials: true,
         methods: ['GET', 'PUT', 'POST', 'PATCH'],
       })
     )
     this.app.derive(({ headers }) => {
-      // Esto lo bueno que podemos usar los headers para pasar el token, como por ejemplo en el loginController
-      // ver el LoginController para ver el ejemplo de pasar el token en header
       const auth = headers['authorization']
       return {
         token: auth?.startsWith('Bearer ') ? auth.slice(7) : null,
       }
     })
-    this.app.group('/api/v1', (app) => app.use(userRouter).use(authUserRouter))
+    this.app.group('/api/v1', (app) => app
+      .use(userRouter)
+      .use(authUserRouter))
   }
 
   public start() {

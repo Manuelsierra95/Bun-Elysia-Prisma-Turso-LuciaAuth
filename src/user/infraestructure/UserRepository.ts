@@ -29,7 +29,6 @@ export class UserRepository implements IUser {
       return new User(user.id, user.email, user.password)
     } catch (e) {
       const error = e as Error
-      console.log(error.message)
       throw new Error(error.message)
     }
   }

@@ -50,9 +50,11 @@ export class AuthCallbackUser {
       cookie.user_session = {
         value: {
           id: githubUser.id,
-          name: githubUser.email,
+          email: githubUser.email,
           sessionId,
         },
+        httpOnly: true,
+        maxAge: 7 * 86400,
       }
 
       return redirect('http://localhost:4321/landing')
@@ -100,11 +102,14 @@ export class AuthCallbackUser {
 
       cookie.user_session = {
         value: {
-          id: googleUser.id,
-          name: googleUser.email,
+          id: googleUser.sub,
+          email: googleUser.email,
           sessionId,
         },
+        httpOnly: true,
+        maxAge: 7 * 86400,
       }
+
       return redirect('http://localhost:4321/landing')
     } catch (error) {
       return {
