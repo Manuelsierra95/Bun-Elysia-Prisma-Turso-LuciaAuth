@@ -43,5 +43,5 @@ package-lock.json
 **/*.bun
 
 # prisma
-/migrations
-dev.db-journal
+prisma/migrations/
+prisma/dev.db-journal
