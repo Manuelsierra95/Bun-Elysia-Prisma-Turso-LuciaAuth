@@ -1,10 +1,8 @@
-# API
+# API Bun-Elysia-Prisma-Turso-LuciaAuth
 
 ## Getting Started
 
-## Requisitos
-
-### Instalar Bun Js:
+## Instalar Bun Js:
 
 MacOs:
 
@@ -40,7 +38,7 @@ bun i
 
 ## Development
 
-To start the development server run:
+Inciar el server:
 
 ```bash
 bun run dev
@@ -54,7 +52,7 @@ bun run dev
 turso db create nombre-de-la-DB
 ```
 
-Ver info de la DB, de aqui sacamos el `TURSO_DATABASE_URL` que tenemos que añadir al .env, que será algo como esto: =`libsql://nombre-de-la-DB-manuelsierra95.turso.io`
+Ver info de la DB, de aqui sacamos el `TURSO_DATABASE_URL` que tenemos que añadir al .env, que será algo como esto: =`libsql://nombre-de-la-DB-usuario.turso.io`
 
 ```bash
 turso db show nombre-de-la-DB
