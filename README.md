@@ -46,6 +46,12 @@ bun run dev
 
 ## Prisma y Turso
 
+### Instalación
+
+```bash
+bun i @prisma/client @libsql/client @prisma/adapter-libsql
+```
+
 ### Crear una DB nueva:
 
 ```bash
