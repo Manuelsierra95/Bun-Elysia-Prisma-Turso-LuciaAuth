@@ -70,6 +70,39 @@ Generamos el token, que tenemos que añadirlo al .env en `TURSO_AUTH_TOKEN`
 turso db tokens create nombre-de-la-DB
 ```
 
+Crear una tabla:
+
+- Iniciamos prisma:
+
+  ```bash
+  prisma init
+  ```
+
+- Pegamos el `driver adapter` en prisma/schema.prisma
+
+  ```javascript
+  generator client {
+  	provider        = "prisma-client-js"
+  	previewFeatures = ["driverAdapters"]
+  }
+  ```
+
+- Creamos los modelos que necesitemos en prisma/schema.prisma, como por ejemplo:
+
+  ```javascript
+  model User {
+    id String @id @default(uuid())
+    email String @unique
+    password String?
+    sessions  Session[]
+  }
+  ```
+
+- Generamos el esquema de la DB:
+  ```bash
+  bunx prisma generate
+  ```
+
 Para crear una migracion:
 
 ```bash
